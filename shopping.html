@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <style>
+            #detail{
+                display:inline-block;
+                width:200px;
+            }
+            img{
+                width:180px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div id="product"></div>
+        已購買商品：<p id="alreadyBuy"></p>
+        <button onclick=pay()>結帳</button>
+        <div id='resultCheck'></div>
+        
+
+
+
+        <script>
+            let product = [
+        {
+            name:'肥皂',
+            type:'生活用品',
+            price:53,
+            imgurl:'https://shop.r10s.jp/himawari2013/cabinet/5/12270.jpg',
+        },
+        {
+            name:'卡納赫拉娃娃',
+            type:'娃娃',
+            price:100,
+            imgurl:'https://s.yimg.com/ut/api/res/1.2/_5VvQPHuXtLCJSeBtb.qcQ--~B/YXBwaWQ9eXR3bWFsbDtjYz0zMTUzNjAwMDtoPTYwMDtxPTgxO3c9NjAw/http://imgcld.zenfs.com:80/ps_image_prod/item/p0663149170578-item-2616xf3x0500x0500-m.jpg'
+        },
+        {
+            name:'床單',
+            type:'生活用品',
+            price:150,
+            imgurl:'https://media.karousell.com/media/photos/products/2017/08/18/bz____1502992867_d090898e0'
+        },
+        {
+            name:'連身裙',
+            type:'潮流',
+            price:220,
+            imgurl:'http://dress90.com/image/cache/data/Dress/Dress%20DAA1710-600x600_0.jpg'
+        },
+        {
+            name:'一張樂透',
+            type:'彩券',
+            price:50,
+            imgurl:'https://pic.pimg.tw/super1688tw/1497435562-4106239939_n.jpg'
+        },
+        {
+            name:'帥哥男朋友',
+            type:'夢想',
+            price:99,
+            imgurl:'https://www.threetong.com/uploads/allimg/161029/5-161029111404K6.jpg'
+        }
+]
+
+
+        let htmlfile = ''
+
+        product.forEach((pro,index)=>{
+            htmlfile=htmlfile+'<div id="detail"><img src='+pro.imgurl+'></img><h3>'+pro.name+'</h3><p>'+pro.type+'</p><p>NT$'+pro.price+'</p><button onclick="buy('+index+')">加入購物車</button></div>'
+        })
+
+        document.getElementById('product').innerHTML=htmlfile
+        let buyProduct = []
+        
+        function buy(index){ //抓取index這個變數放入buy裡面
+            // console.log('buy',product[index])
+            //買了第幾個產品
+            buyProduct.push(product[index])
+            // console.log(buyProduct)
+            let buyProductWord = ''
+            buyProduct.forEach((proObj)=>{
+                buyProductWord = buyProductWord + proObj.name + '/'
+            })
+            
+            //將buyProductWord放到alreadyBuy這個dom
+            document.getElementById('alreadyBuy').innerHTML = buyProductWord
+        }
+
+        function pay(){
+            let payMoney = 0
+            buyProduct.forEach((proObj)=>{
+                payMoney = payMoney + proObj.price
+        })
+            console.log(payMoney)
+            document.getElementById('resultCheck').innerHTML='<p>總價'+payMoney+'</p><button onclick="overpay()">確認結帳</button>'
+        }
+
+        function overpay(){
+            alert('購買成功')
+            buyProduct=[]
+            document.getElementById('alreadyBuy').innerHTML=''
+            document.getElementById('resultCheck').innerHTML=''
+        }
+
+        </script>
+    </body>
+</html>
